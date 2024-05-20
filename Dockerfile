@@ -1,4 +1,4 @@
-FROM python:alpine AS builder
+FROM python:3.11-alpine AS builder
 
 ARG AWSCLI_VERSION
 
@@ -20,7 +20,7 @@ RUN curl https://awscli.amazonaws.com/awscli-${AWSCLI_VERSION}.tar.gz | tar -xz 
     && make \
     && make install
 
-FROM python:alpine
+FROM python:3.11-alpine
 COPY --from=builder /opt/aws-cli/ /opt/aws-cli/
 RUN ln -s /opt/aws-cli/bin/aws /usr/bin/aws
 
